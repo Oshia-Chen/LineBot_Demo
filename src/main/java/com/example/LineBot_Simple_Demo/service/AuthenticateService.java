@@ -5,6 +5,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public interface AuthenticateService {
-    public Boolean authenticate(String X_Line_Signature, String requestBody) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException;
+    Boolean authenticate(String X_Line_Signature, String requestBody) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException;
 
 }
