@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -39,6 +41,17 @@ public class Controller {
             return new ResponseEntity("Success!", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Failed to send message:"+ e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getMessageByUserId/{userId}")
+    public ResponseEntity getMessage(@PathVariable String userId) {
+        try{
+            List<String> messageList = queryService.queryMessageListByUser(userId);
+            System.out.println(messageList);
+            return new ResponseEntity(messageList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Failed to get user's message, the userId might be invalid:"+ e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

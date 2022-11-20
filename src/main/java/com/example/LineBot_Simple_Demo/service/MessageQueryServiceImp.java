@@ -7,6 +7,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class MessageQueryServiceImp implements MessageQueryService{
@@ -25,10 +28,21 @@ public class MessageQueryServiceImp implements MessageQueryService{
                 messageObj.setMessage(object.getJSONArray("events").getJSONObject(i).getJSONObject("message").getString("text"));
                 messageObj.setTimeStamp(object.getJSONArray("events").getJSONObject(i).getInt("timestamp"));
                 messageObj.setUserId(object.getJSONArray("events").getJSONObject(i).getJSONObject("source").getString("userId"));
-                return messageRepository.save(messageObj).getMessage();
+                return messageRepository.save(messageObj).getUserId();
             }
         }
         return "";
+    }
+
+    @Override
+    public List<String> queryMessageListByUser(@NonNull String userId){
+        List<Message> list = messageRepository.findAll();
+        List<String> messagesOfUser = new ArrayList<>();
+        for (Message message : list) {
+            String id = message.getUserId();
+            if(userId.equals(id)) messagesOfUser.add(message.getMessage());
+        }
+        return messagesOfUser;
     }
 
 }
