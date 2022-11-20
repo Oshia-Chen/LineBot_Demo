@@ -3,8 +3,10 @@ package com.example.LineBot_Simple_Demo.service;
 import com.example.LineBot_Simple_Demo.dao.MessageRepository;
 import com.example.LineBot_Simple_Demo.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
+
 
 @Service
 public class MessageQueryServiceImp implements MessageQueryService{
@@ -14,7 +16,7 @@ public class MessageQueryServiceImp implements MessageQueryService{
     public MessageRepository messageRepository;
 
     @Override
-    public String save(String message) {
+    public String save(@NonNull String message) {
         Message messageObj = new Message();
         //transfer message string to Message object.
         JSONObject object = new JSONObject(message);
@@ -26,7 +28,8 @@ public class MessageQueryServiceImp implements MessageQueryService{
                 return messageRepository.save(messageObj).getMessage();
             }
         }
-        return " ";
+        return "";
     }
+
 }
 
