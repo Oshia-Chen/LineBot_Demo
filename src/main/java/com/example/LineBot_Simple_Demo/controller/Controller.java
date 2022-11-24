@@ -26,7 +26,7 @@ public class Controller {
             AuthenticateServiceImp Service = new AuthenticateServiceImp();
             if (!Service.authenticate(X_Line_Signature, requestBody))
                 return new ResponseEntity("Authenticate Failed!", HttpStatus.UNAUTHORIZED);
-            System.out.println(queryService.save(requestBody));
+            //System.out.println(queryService.save(requestBody));
             return new ResponseEntity("Success!", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity("Failed to save message:"+ e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -48,7 +48,7 @@ public class Controller {
     public ResponseEntity getMessage(@PathVariable String userId) {
         try{
             List<String> messageList = queryService.queryMessageListByUser(userId);
-            System.out.println(messageList);
+            //System.out.println(messageList);
             return new ResponseEntity(messageList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Failed to get user's message, the userId might be invalid:"+ e.getMessage(), HttpStatus.BAD_REQUEST);
